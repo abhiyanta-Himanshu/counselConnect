@@ -30,20 +30,58 @@ export const createAppointment = async (req, res) => {
 
 // Get all appointments for a user
 export const getAppointments = async (req, res) => {
+  // console.log(req.user)
   try {
     const appointments = await Appointment.find({ user: req.user }).populate('lawyer').populate('user');
-    res.status(200).json(appointments);
+    // console.log(appointments)
+    res.status(200).json({
+      message : "Fetched User Appointment Successfully",
+      appointments,
+      success: true
+    });
   } catch (err) {
-    res.status(500).json({ message: 'Error fetching appointments', error: err.message });
+    res.status(500).json({
+       message: 'Error fetching appointments',
+        error: err.message,
+        success : false
+      });
   }
 };
 
+//Get all appointment for a lawyer
+export const lawyerAppointment = async (req, res) => {
+  try {
+    const appointments = await Appointment.find({lawyer : req.user}).populate('lawyer').populate('user')
+
+    if(!appointments) {
+      return res.status(404).json({
+        message: 'Appointment not found',
+        success: true
+      });
+    }
+
+    res.status(200).json({
+      message : "Fetched Lawyer Appointment Successfully",
+      appointments,
+      success: true
+    })
+    
+  } catch (error) {
+    es.status(500).json({
+      message: 'Error fetching appointments',
+       error: err.message,
+       success : false
+     });
+  }
+}
+
 // Update appointment status
 export const updateAppointmentStatus = async (req, res) => {
-  const { appointmentId, status } = req.body;
-
+  const {status } = req.body;
+  const {id} = req.params;
+  const lawyer = req.user;
   try {
-    const appointment = await Appointment.findById(appointmentId);
+    const appointment = await Appointment.findById(id);
 
     if (!appointment) {
       return res.status(404).json({
@@ -52,9 +90,21 @@ export const updateAppointmentStatus = async (req, res) => {
       });
     }
 
+    console.log(lawyer._id , appointment.lawyer._id)
+    if(lawyer._id.toString() !== appointment.lawyer._id.toString()) {
+      return res.status(401).json({
+        message : "Lawyer Not authenticate",
+        success : false
+      })
+    }
+
     appointment.status = status;
     await appointment.save();
-    res.status(200).json(appointment);
+    res.status(200).json({
+      message:"Updated Successfully",
+      appointment,
+      success : true
+    });
   } catch (err) {
     res.status(500).json({
       message: 'Error updating appointment status',

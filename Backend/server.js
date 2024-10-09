@@ -20,7 +20,7 @@ const corsOptions = {
     origin : "http://localhost:5173",
     credentials : true
 }
-app.use(cors());  // Enable CORS
+app.use(cors(corsOptions));  // Enable CORS
 app.use(express.json());  // Parse JSON requests
 app.use(urlencoded({extended : true}));
 app.use(cookieParser());

@@ -21,15 +21,45 @@ export const createReview = async (req, res) => {
   }
 };
 
+//get all reviews
+export const getReview = async (req , res) => {
+  try {
+    const reviews = await Review.find().populate('user').populate('lawyer');
+
+    console.log(reviews)
+
+    res.status(200).json({
+      message : "Review fetched successfully",
+      reviews,
+      success : true
+    })
+
+  } catch (err) {
+    res.status(500).json({ 
+      message: 'Error fetching reviews', 
+      error: err.message,
+      success : false
+    });
+  }
+}
+
 // Get all reviews for a lawyer
 export const getReviewsForLawyer = async (req, res) => {
   const { lawyerId } = req.params;
 
   try {
     const reviews = await Review.find({ lawyer: lawyerId }).populate('user');
-    res.status(200).json(reviews);
+    res.status(200).json({
+      message : "Review fetched successfully",
+      reviews,
+      success : true
+    });
   } catch (err) {
-    res.status(500).json({ message: 'Error fetching reviews', error: err.message });
+    res.status(500).json({ 
+      message: 'Error fetching reviews',
+      error: err.message,
+      success : false
+    });
   }
 };
 

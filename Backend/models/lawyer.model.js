@@ -5,18 +5,18 @@ const LawyerSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   specialization: { type: String, required: true },
-  experience_years: { type: Number },
+  experience: { type: Number , default:0},
   location: {
     city: String,
     state: String,
   },
   contact_number: { type: String },
   rating: { type: Number, default: 0 },
-  profile_picture: { type: String },
+  profile_pic: { type: String, default:"" },
   biography: { type: String },
   availability: [
     {
-      day: [String],
+      day: String,
       from: String,
       to: String,
     },

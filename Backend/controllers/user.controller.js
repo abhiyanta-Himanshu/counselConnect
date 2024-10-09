@@ -1,11 +1,13 @@
 import User from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import cloudinary from "../utils/cloudinary.js"
+import getDataUri from '../utils/datauri.js';
 
 // User Registration
 export const registerUser = async (req, res) => {
   const { name, email, password, contact_number } = req.body;
-
+  // console.log(name, email, password, contact_number)
   try {
     // Check if the user already exists
     let user = await User.findOne({ email });
@@ -40,7 +42,10 @@ export const registerUser = async (req, res) => {
       success: true
     })
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ 
+      message: err.message,
+      success: false
+     });
   }
 };
 
@@ -50,7 +55,7 @@ export const loginUser = async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
-    console.log(user)
+    // console.log(user)
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
@@ -136,6 +141,9 @@ export const getUserProfile = async (req, res) => {
 // Update User Profile
 export const updateProfile = async (req, res) => {
   const { name, email, contact_number } = req.body;
+  console.log(req.body)
+  console.log(name, email, contact_number)
+  const file = req.file;
 
   try {
     // Find the user by ID
@@ -148,24 +156,39 @@ export const updateProfile = async (req, res) => {
       });
     }
 
+
     // Update user details
     user.name = name || user.name;
     user.email = email || user.email;
     user.contact_number = contact_number || user.contact_number;
 
+    // file handling
+    if(file) {
+      const fileUri = getDataUri(file);
+      const cloudResponse = await cloudinary.uploader.upload(fileUri.content,{
+        resource_type : 'raw'
+      }).catch((error) => {
+        console.log(error)
+      })
+      if(cloudResponse) {
+        user.profile_pic = cloudResponse.secure_url
+      }
+    }
+    
+
     // Save updated user
     await user.save();
 
+    console.log(user)
     res.status(200).json({
       message: 'Profile updated successfully!',
-      user: {
-        name,
-        email,
-        contact_number
-      },
+      user,
       success: true
     });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ 
+      message: error.message,
+    success : false
+   });
   }
 };
