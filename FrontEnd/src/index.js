@@ -26,9 +26,14 @@ import AppointmentBooking from './components/Appointment/AppointmentBooking.jsx'
 // import UpdateAppointment from './components/Appointment/UpdateAppointment.jsx';
 import LawyerAppointment from './components/Appointment/LawyerAppointment.jsx';
 
+
+import ViewLegalResource from './components/Legal-Resource/ViewLegalResource.jsx';
+import CreateLegalResources from './components/Legal-Resource/CreateLegalResources.jsx';
+
 export {Navbar, Home , HeroSection, Login, Signup, Features, 
     Testimonials, CallToAction, Footer , ViewProfile, EditProfile
     , LawyerSignup, LawyerLogin , ViewLawyerProfile, EditLawyerProfile,
     FindLawyers, FilterCard , UserAppointment, AppointmentBooking,
-    LawyerAppointment, ViewLawyerProfileId
+    LawyerAppointment, ViewLawyerProfileId,
+    ViewLegalResource , CreateLegalResources
 } ;

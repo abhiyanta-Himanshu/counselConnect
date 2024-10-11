@@ -25,7 +25,7 @@ const Features = () => {
       title: "Access Legal Resources",
       description: "Browse the latest court orders and other legal resources.",
       icon: "📚",
-      link: '/'
+      link: '/legal-resources'
     },
   ];
 

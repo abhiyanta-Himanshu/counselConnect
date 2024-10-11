@@ -2,10 +2,11 @@
 import React from 'react'
 import {createBrowserRouter , RouterProvider } from 'react-router-dom'
 
-import {AppointmentBooking, FindLawyers, Home, LawyerAppointment, UserAppointment, ViewLawyerProfileId} from "./index.js"
+import {AppointmentBooking, CreateLegalResources, FindLawyers, Home, LawyerAppointment, UserAppointment, ViewLawyerProfileId} from "./index.js"
 import {Login , Signup} from "./index.js"
 import {ViewProfile , EditProfile} from "./index.js"
 import { LawyerSignup, LawyerLogin, ViewLawyerProfile, EditLawyerProfile} from './index.js'
+import { ViewLegalResource } from "./index.js"
 
 const appRouter = createBrowserRouter([
   {
@@ -66,11 +67,15 @@ const appRouter = createBrowserRouter([
     path :'/book/appointment/:id',
     element: <AppointmentBooking/>
   },
+  // legal resource
   {
-    // path :'/appointment/update',
-    // element: <UpdateAppointment/>
+    path :'/legal-resources',
+    element: <ViewLegalResource/>
   },
-  
+  {
+    path :'/legal-resources/create',
+    element: <CreateLegalResources/>
+  },
 ])
 
 

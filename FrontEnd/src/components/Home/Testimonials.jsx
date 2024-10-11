@@ -63,7 +63,7 @@ const Testimonials = () => {
                 alt={testimonial.user.name}
                 className="w-24 h-24 mx-auto rounded-full mb-4"
               />
-              <h3 className="text-xl font-bold mb-2">User: {testimonial.user.name}</h3>
+              <h3 className="text-xl font-bold mb-2">{testimonial.user.name}</h3>
               <p className="text-gray-500 mb-2"> Got services from : {testimonial.lawyer.name}</p>
               <p className="text-gray-700">{testimonial.comment}</p>
               <p className="text-gray-700">Rating : {testimonial.rating}</p>

@@ -24,9 +24,17 @@ export const createLegalResource = async (req, res) => {
 export const getLegalResources = async (req, res) => {
   try {
     const legalResources = await LegalResource.find();
-    res.status(200).json(legalResources);
+    res.status(200).json({
+      message : "Fetched Successfully",
+      legalResources,
+      success : true
+    });
   } catch (err) {
-    res.status(500).json({ message: 'Error fetching legal resources', error: err.message });
+    res.status(500).json({ 
+      message: 'Error fetching legal resources',
+      error: err.message,
+      success : false
+    });
   }
 };
 
