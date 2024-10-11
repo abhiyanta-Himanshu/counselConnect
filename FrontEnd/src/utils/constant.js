@@ -4,6 +4,6 @@ export const LAWYER_API_END_POINT = "https://counselconnect-backend.onrender.com
 
 export const APPOINTMENT_API_END_POINT = "https://counselconnect-backend.onrender.com/api/appointments"
 
-export const REVIEW_API_END_POINT = "https://counselconnect-backend.onrender.com/api/api/reviews"
+export const REVIEW_API_END_POINT = "https://counselconnect-backend.onrender.com/api/reviews"
 
 export const LEGAL_RESOURCES_API_END_POINT = "https://counselconnect-backend.onrender.com/api/legal-resources"
