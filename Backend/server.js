@@ -17,7 +17,7 @@ import appointmentRoutes from "./routes/appointment.route.js"
 
 // Middleware
 const corsOptions = {
-    origin : "http://localhost:5173",
+    origin : "https://counselconnect-frontend.onrender.com",
     credentials : true
 }
 app.use(cors(corsOptions));  // Enable CORS
