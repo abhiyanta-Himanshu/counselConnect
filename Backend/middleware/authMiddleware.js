@@ -24,6 +24,7 @@ export const protect = async (req , res , next) => {
                 success : false
             })
         }
+        console.log(req.user)
         // req.id = decode.userId;
         next();
 
