@@ -141,6 +141,7 @@ export const getUserProfile = async (req, res) => {
 
 // Update User Profile
 export const updateProfile = async (req, res) => {
+  console.log("Enter in update profile controller.")
   const { name, email, contact_number } = req.body;
   console.log(req.body)
   console.log(name, email, contact_number)
